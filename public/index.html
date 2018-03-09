@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <input id="inp" type="text" />
+    <button id="btn">发送</button>
+  </div>
+  <div id="message"></div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  let inp = document.querySelector('#inp')
+  let btn = document.querySelector('#btn')
+  let message = document.querySelector('#message')
+  let socket = io.connect('http://127.0.0.1:5001')
+
+  btn.addEventListener('click', () => {
+    let val = inp.value
+    socket.emit('message', val)
+    return false
+  })
+
+  socket.on('message', (msg) => {
+    inp.value = ''
+    let li = document.createElement('li')
+    li.innerHTML = msg
+    message.appendChild(li)
+  })
+
+</script>
+</html>
