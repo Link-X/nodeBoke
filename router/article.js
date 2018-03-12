@@ -32,7 +32,7 @@ router.post('/article/del', (req, res, next) => {
   if (!params.id) {
     res.send({
       code: 100,
-      msg: '文字id不能为空'
+      msg: '文章id不能为空'
     })
     return
   }
