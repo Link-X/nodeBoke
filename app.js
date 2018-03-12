@@ -16,6 +16,8 @@ socketInit(io)
 
 app.use(Express.static('./public'))
 
+app.use('/', Express.static(path.join(__dirname, './static')))
+
 app.user('/api', user, room, space)
 
 server.listen(5001, () => {
