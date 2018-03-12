@@ -8,10 +8,15 @@ const app = Express()
 const server = require('http').Server(app)
 const io = socketIo(server)
 const socketInit = require('./socket/index')
+const room = require('./router/room')
+const space = require('./router/space')
+const user = require('./router/user')
 
 socketInit(io)
 
 app.use(Express.static('./public'))
+
+app.user('/api', user, room, space)
 
 server.listen(5001, () => {
   console.log('server runing at 127.0.0.1:5001')
