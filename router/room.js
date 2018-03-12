@@ -17,10 +17,11 @@ router.post('/room/getRoom', (req, res, next) => {
       return
     }
   }
-  let data = room.getRoomData(params)
-  res.send({
-    code: 200,
-    data
+  room.getRoomData(params).then(data => {
+    res.send({
+      code: 200,
+      data
+    })
   })
 })
 

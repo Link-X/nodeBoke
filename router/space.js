@@ -10,11 +10,12 @@ router.post('/space/getSpace', (req, res, next) => {
       msg: '查询用户不能为空'
     })
   }
-  let data = space.getUserSpaceData(params)
-  res.send({
-    code: 200,
-    data
-  });
+  space.getUserSpaceData(params).then(data => {
+    res.send({
+      code: 200,
+      data
+    })
+  })
 })
 
 router.post('/space/del', (req, res, next) => {
@@ -31,10 +32,11 @@ router.post('/space/del', (req, res, next) => {
       })
       return
     }
-    let data = space.del(params)
-    res.send({
-      code: 200,
-      data
+    space.del(params).then(data => {
+      res.send({
+        code: 200,
+        data
+      })
     })
   }
 })

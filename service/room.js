@@ -1,9 +1,8 @@
 const room = require('../model/room')
 
 module.exports = {
-  getRoomData (params) {
-   room.getRoomData(params).then(data => {
-     return data
-   })
+  async getRoomData (params) {
+   let data = await room.getRoomData(params)
+   return data
   }
 }

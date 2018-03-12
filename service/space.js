@@ -1,14 +1,12 @@
 const space = require('../model/space')
 
 module.exports = {
-  getUserSpaceData (params) {
-    space.getUserSpaceData(params).then(data => {
-      return data
-    })
+  async getUserSpaceData (params) {
+    let data = await space.getUserSpaceData(params)
+    return data
   },
-  del (params) {
-    space.del(params).then(data => {
-      return data
-    })
+  async del (params) {
+    let data = await space.del(params)
+    return data
   }
 }

@@ -7,6 +7,7 @@ module.exports = {
     let where = {
       iphone: params.iphone
     }
+    console.log(where)
     params.createData = moment().format('YYYY-MM-DD HH:mm:ss')
     // ( data.type: exist表示已存在，add新增 )
     return db.query('user').thenAdd(params, where, true)

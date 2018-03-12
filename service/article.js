@@ -1,35 +1,28 @@
 const article = require('../model/article')
 
 module.exports = {
-  add (params) {
+  async add (params) {
     // 添加文章
-    article.add(params).then(data => {
-      return data
-    })
+    let data = await article.add(params)
+    return data
   },
-  del (params) {
+  async del (params) {
     // 删除文章
-    article.del(params).then(data => {
-      return data
-    })
+    let data = await article.del(params)
+    return data
   },
-  list (params) {
+  async list (params) {
     // 查询文章分页列表
-    let data = {
-      data: null,
-      dataTotal: null
+    let data = await article.list(params)
+    let dataTotal = await article.listCount()
+    return {
+      data: data,
+      dataTotal: dataTotal
     }
-    article.list(params).then(data => {
-      data.data = data
-    })
-    article.listCount().then(data => {
-      data.dataTotal = data
-    })
   },
-  compile (params) {
+  async compile (params) {
     // 编辑文章
-    article.compile(params).then(data => {
-      return data
-    })
+    let data = await article.compile(params)
+    return data
   }
 }

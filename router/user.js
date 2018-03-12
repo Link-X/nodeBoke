@@ -19,10 +19,11 @@ router.post('/user/add', (req, res, next) => {
       return
     }
   }
-  let data = user.addUser(params)
-  res.send({
-    code: 200,
-    data
+  user.addUser(params).then(data => {
+    res.send({
+      code: 200,
+      data
+    })
   })
 })
 
@@ -42,10 +43,11 @@ router.post('/user/getUser', (req, res, next) => {
       return
     }
   }
-  let data = user.getUserData(params)
-  res.send({
-    code: 200,
-    data
+  user.getUserData(params).then(data => {
+    res.send({
+      code: 200,
+      data
+    })
   })
 })
 
@@ -56,7 +58,7 @@ router.post('/user/compile', (req, res, next) => {
     iphone: params && params.iphone,
     id: params && params.id
   }
-  for (let key in params) {
+  for (let key in judeg) {
     if (!judeg[key]) {
       res.send({
         code: 100,
@@ -65,12 +67,12 @@ router.post('/user/compile', (req, res, next) => {
       return
     }
   }
-  let data = user.compileUser(params)
-  res.send({
-    code: 200,
-    data
+  user.compileUser(params).then(data => {
+    res.send({
+      code: 200,
+      data
+    })
   })
-
 })
 
 module.exports = router
