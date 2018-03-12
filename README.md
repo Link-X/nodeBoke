@@ -1,4 +1,4 @@
-后台使用node、socket.io 等实现，前端框架使用vue全家桶，数据库使用mysql
+后台使用node、socket.io、express 等实现，前端框架使用vue全家桶，数据库使用mysql
 
 聊天系统（注册、登入、群聊、私聊 ----- (未实现)
 
