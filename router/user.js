@@ -44,6 +44,13 @@ router.post('/user/getUser', (req, res, next) => {
     }
   }
   user.getUserData(params).then(data => {
+    if (!data.length) {
+      res.send({
+        code: 1,
+        msg: "用户名或密码错误"
+      })
+      return
+    }
     res.send({
       code: 200,
       data
