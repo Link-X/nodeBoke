@@ -6,7 +6,7 @@ module.exports = function (io) {
   })
 
   io.on('disconnect', () => {
-    
+    console.log(1)
   })
 
 }
