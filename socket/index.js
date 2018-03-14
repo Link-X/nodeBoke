@@ -2,14 +2,17 @@ module.exports = function (io) {
   let usocket = {}
   let room = {}
   io.on('connection', (socket) => {
-    socket.on('new user', (data) => {
+    socket.on('newUser', (data = {userName: '', userId: ''}) => {
       // 用户加入
+      if (!data || !data.userId) {
+        return
+      }
       usocket[data.userName] = data.userId
     })
 
-    socket.on('send private chat', (data) => {
+    socket.on('sendPrivateChat', (data) => {
       // 私聊发送信息
-      socket.to(usocket[data.userName]).emit('private chat', data)
+      socket.to(usocket[data.userName]).emit('privatChat', data)
     })
 
     socket.on('join', (data) => {
@@ -20,6 +23,15 @@ module.exports = function (io) {
       room[data.roomId].push(data.userName)
       socket.join(data.roomId)
       socket.to(data.roomId).emit('sys', data.userName + '进入聊天室', room[data.roomId])
+    })
+
+    socket.on('sendRoomChat', (data) => {
+      // 群发信息
+      console.log(data, '1111')
+      if (!data.roomId) {
+        return
+      }
+      socket.to(data.roomId).emit('roomMessage', data)
     })
 
     socket.on('leave', (data) => {
