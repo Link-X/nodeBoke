@@ -15,7 +15,8 @@
     "express": "^4.16.2",
     "moment": "^2.21.0",
     "node-mysql-promise": "^0.0.7",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

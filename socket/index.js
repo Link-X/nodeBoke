@@ -1,3 +1,5 @@
+const moment = require('moment')
+var _ = require('underscore')
 module.exports = function (io) {
   let usocket = {}
   let room = {}
@@ -12,7 +14,23 @@ module.exports = function (io) {
 
     socket.on('sendPrivateChat', (data) => {
       // 私聊发送信息
-      socket.to(usocket[data.userName]).emit('privatChat', data)
+      if (!data.userName || !data.userId) {
+        return
+      }
+      let sendData = {
+          userName: data.userName,
+          sendName: data.sendName,
+          msgTitle: data.msg,
+          msgArr: [{
+            msg: data.msg,
+            sign: 'he',
+            id: Math.random() * 1000 + 'node'
+          }],
+          date: moment().format('YYYY-MM-DD HH:mm:ss'),
+          userId: data.userId
+      }
+      console.log(sendData, usocket[data.userName])
+      socket.to(usocket[data.userName]).emit('privatChat', sendData)
     })
 
     socket.on('join', (data) => {
@@ -22,7 +40,7 @@ module.exports = function (io) {
       }
       room[data.roomId].push(data.userName)
       socket.join(data.roomId)
-      socket.to(data.roomId).emit('sys', data.userName + '进入聊天室', room[data.roomId])
+      socket.to(data.roomId).emit('sys', data, room[data.roomId])
     })
 
     socket.on('sendRoomChat', (data) => {
