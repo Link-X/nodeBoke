@@ -1,36 +1,46 @@
 const moment = require('moment')
 var _ = require('underscore')
+let usocket = {}
+let room = {}
+function privateSocket(io, toId) {
+  // 寻找socket 保存的 socket 对象
+  return (_.findWhere(io.sockets.sockets, { id: toId }));
+}
 module.exports = function (io) {
-  let usocket = {}
-  let room = {}
   io.on('connection', (socket) => {
-    socket.on('newUser', (data = {userName: '', userId: ''}) => {
+    socket.on('newUser', (data = { userName: '', userId: '' }) => {
       // 用户加入
       if (!data || !data.userId) {
         return
       }
-      usocket[data.userName] = data.userId
+      usocket[data.userName] = socket.id
+      socket.emit('yesEnter', socket.id)
     })
 
     socket.on('sendPrivateChat', (data) => {
       // 私聊发送信息
-      if (!data.userName || !data.userId) {
+      console.log(data)
+      if (!data.userName || !usocket[data.userName]) {
         return
       }
       let sendData = {
-          userName: data.userName,
-          sendName: data.sendName,
-          msgTitle: data.msg,
-          msgArr: [{
-            msg: data.msg,
-            sign: 'he',
-            id: Math.random() * 1000 + 'node'
-          }],
-          date: moment().format('YYYY-MM-DD HH:mm:ss'),
-          userId: data.userId
+        userName: data.userName,
+        sendName: data.sendName,
+        msgTitle: data.msg,
+        msg: data.msg,
+        msgArr: [{
+          msg: data.msg,
+          sign: 'he',
+          id: Math.random() * 1000 + 'node'
+        }],
+        date: moment().format('YYYY-MM-DD HH:mm:ss'),
+        userId: data.userId,
+        toUserId: data.toUserId
       }
-      console.log(sendData, usocket[data.userName])
-      socket.to(usocket[data.userName]).emit('privatChat', sendData)
+      var toId
+      if (toId = usocket[data.userName]) {
+        privateSocket(io, toId).emit('privatChat', sendData)
+      }
     })
 
     socket.on('join', (data) => {
@@ -60,7 +70,7 @@ module.exports = function (io) {
 
     socket.on('disconnect', () => {
       // 用户退出
-      delete(usocket[socket.userName])
+      delete (usocket[socket.userName])
     })
 
   })
