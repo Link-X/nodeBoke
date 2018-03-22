@@ -13,14 +13,16 @@ module.exports = function (io) {
       if (!data || !data.userId) {
         return
       }
-      usocket[data.userName] = socket.id
+      // 保存用户的名字对应 上 socket生成的id
+      usocket[data.userId] = socket.id
       socket.emit('yesEnter', socket.id)
     })
 
     socket.on('sendPrivateChat', (data) => {
       // 私聊发送信息
-      console.log(data)
-      if (!data.userName || !usocket[data.userName]) {
+      // console.log(data)
+      // console.log(data)
+      if (!data.toUserId || !usocket[data.toUserId]) {
         return
       }
       let sendData = {
@@ -38,7 +40,8 @@ module.exports = function (io) {
         toUserId: data.toUserId
       }
       var toId
-      if (toId = usocket[data.userName]) {
+      if (toId = usocket[data.toUserId]) {
+        // 找出接收消息的socket 触发事件
         privateSocket(io, toId).emit('privatChat', sendData)
       }
     })
@@ -48,6 +51,7 @@ module.exports = function (io) {
       if (!room[data.roomId]) {
         room[data.roomId] = []
       }
+      // 保存一份房间用户列表
       room[data.roomId].push(data.userName)
       socket.join(data.roomId)
       socket.to(data.roomId).emit('sys', data, room[data.roomId])
@@ -55,8 +59,7 @@ module.exports = function (io) {
 
     socket.on('sendRoomChat', (data) => {
       // 群发信息
-      console.log(data, '1111')
-      if (!data.roomId) {
+      if (!data.roomId || !data.userName) {
         return
       }
       socket.to(data.roomId).emit('roomMessage', data)

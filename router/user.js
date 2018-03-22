@@ -10,6 +10,7 @@ router.post('/user/add', (req, res, next) => {
     password: params && params.password,
     iphone: params && params.iphone
   }
+  // 校验是否有空值
   for (let key in judeg) {
     if (!judeg[key]) {
       res.send({
