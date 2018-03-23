@@ -29,5 +29,14 @@ module.exports = {
       iphone: params.userNumber
     }
     return db.query('user').where(where).field(['createDate', 'id', 'iphone', 'signature', 'userImg', 'userName']).select()
+  },
+  addFriend (params) {
+    // 添加好友
+   let where = {
+     friendId: params.friendId
+   }
+   params.createData = moment().format('YYYY-MM-DD HH:mm:ss')
+   // ( data.type: exist表示已存在，add新增 )
+   return db.query('user').thenAdd(params, where, true)
   }
 }

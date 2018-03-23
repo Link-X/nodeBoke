@@ -19,5 +19,9 @@ module.exports = {
     // 查找好友
     let data = await user.getFriend(params)
     return data
+  },
+  async addFriend (params) {
+    let data = await user.addFriend(params)
+    return data
   }
 }

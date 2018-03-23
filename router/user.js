@@ -77,6 +77,26 @@ router.post('/user/getFriend', (req, res, next) => {
   })
 })
 
+router.post('/user/addFriend', (req, res, next) => {
+  //添加好友
+  let params = req.body
+  for (let i in params) {
+    if (!params[i]) {
+      res.send({
+        code: 1,
+        msg: `${i}不能为空`
+      })
+      return
+    }
+  }
+  user.addFriend(params).then(data => {
+    res.send({
+      code: 200,
+      data
+    })
+  })
+})
+
 router.post('/user/compile', (req, res, next) => {
   // 修改用户信息
   let params = req.body
