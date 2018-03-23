@@ -39,5 +39,9 @@ module.exports = {
     params.id = '12'
     // ( data.type: exist表示已存在，add新增 )
     return db.query('friend').thenAdd(params, where, true)
+  },
+  friendList (params) {
+    // 查询好友列表
+    return db.query('friend').where({userId: params.userId}).select()
   }
 }

@@ -23,5 +23,9 @@ module.exports = {
   async addFriend (params) {
     let data = await user.addFriend(params)
     return data
+  },
+  async friendList (params) {
+    let data = await user.friendList(params)
+    return data
   }
 }

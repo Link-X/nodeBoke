@@ -97,6 +97,16 @@ router.post('/user/addFriend', (req, res, next) => {
   })
 })
 
+router.post('/user/friendList', (req, res, next) => {
+  let params = req.body
+  user.friendList(params).then(data => {
+    res.send({
+      code: 200,
+      data
+    })
+  })
+})
+
 router.post('/user/compile', (req, res, next) => {
   // 修改用户信息
   let params = req.body
