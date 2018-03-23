@@ -59,6 +59,24 @@ router.post('/user/getUser', (req, res, next) => {
   })
 })
 
+router.post('/user/getFriend', (req, res, next) => {
+  // 查找用户
+  let params = req.body
+  if (!params.userNumber) {
+    res.send({
+      code: 1,
+      msg: '账号不能为空'
+    })
+    return
+  }
+  user.getFriend(params).then(data => {
+    res.send({
+      code: 200,
+      data
+    })
+  })
+})
+
 router.post('/user/compile', (req, res, next) => {
   // 修改用户信息
   let params = req.body

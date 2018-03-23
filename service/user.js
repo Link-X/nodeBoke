@@ -14,5 +14,10 @@ module.exports = {
     // 修改用户资料
     let data = await user.compileUser(params)
     return data
+  },
+  async getFriend (params) {
+    // 查找好友
+    let data = await user.getFriend(params)
+    return data
   }
 }
