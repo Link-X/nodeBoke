@@ -32,11 +32,13 @@ module.exports = {
   },
   addFriend (params) {
     // 添加好友
-   let where = {
-     friendId: params.friendId
-   }
-   params.createData = moment().format('YYYY-MM-DD HH:mm:ss')
-   // ( data.type: exist表示已存在，add新增 )
-   return db.query('user').thenAdd(params, where, true)
+    let where = {
+      friendId: params.friendId
+    }
+    params.createData = moment().format('YYYY-MM-DD HH:mm:ss')
+    params.id = '12'
+    // ( data.type: exist表示已存在，add新增 )
+    console.log(params)
+    return db.query('friend').thenAdd(params, where, true)
   }
 }
