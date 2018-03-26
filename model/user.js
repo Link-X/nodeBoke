@@ -33,7 +33,8 @@ module.exports = {
   addFriend (params) {
     // 添加好友
     let where = {
-      friendId: params.friendId
+      friendId: params.friendId,
+      userId: params.userId
     }
     params.createData = moment().format('YYYY-MM-DD HH:mm:ss')
     // ( data.type: exist表示已存在，add新增 )
