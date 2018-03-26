@@ -21,7 +21,6 @@ module.exports = function (io) {
     socket.on('sendPrivateChat', (data) => {
       // 私聊发送信息
       // console.log(data)
-      // console.log(data)
       if (!data.toUserId || !usocket[data.toUserId]) {
         return
       }
@@ -30,6 +29,7 @@ module.exports = function (io) {
         sendName: data.sendName,
         msgTitle: data.msg,
         msg: data.msg,
+        sing: data.sign,
         msgArr: [{
           msg: data.msg,
           sign: 'he',
@@ -48,6 +48,7 @@ module.exports = function (io) {
 
     socket.on('join', (data) => {
       // 加入房间
+      console.log(data)
       if (!room[data.roomId]) {
         room[data.roomId] = []
       }
