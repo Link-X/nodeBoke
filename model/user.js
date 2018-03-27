@@ -28,7 +28,8 @@ module.exports = {
     let where = {
       iphone: params.userNumber
     }
-    return db.query('user').where(where).field(['createDate', 'id', 'iphone', 'signature', 'userImg', 'userName', 'userImg']).select()
+    let data = ['createDate', 'id', 'iphone', 'signature', 'userImg', 'userName']
+    return db.query('user').where(where).field(data).select()
   },
   addFriend (params) {
     // 添加好友
