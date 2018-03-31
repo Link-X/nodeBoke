@@ -39,7 +39,7 @@ router.post('/user/getUser', (req, res, next) => {
     if (!judeg[key]) {
       res.send({
         code: 100,
-        msg: `${key}不能为空`
+        msg: `登陆错误：${key}不能为空`
       })
       return
     }
