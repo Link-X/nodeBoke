@@ -48,7 +48,6 @@ module.exports = function (io) {
 
     socket.on('join', (data) => {
       // 加入房间
-      console.log(data)
       if (!room[data.roomId]) {
         room[data.roomId] = []
       }

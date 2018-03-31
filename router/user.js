@@ -62,7 +62,7 @@ router.post('/user/getUser', (req, res, next) => {
 router.post('/user/getFriend', (req, res, next) => {
   // 查找用户
   let params = req.body
-  if (!params.userNumber) {
+  if (!params.iphone) {
     res.send({
       code: 1,
       msg: '账号不能为空'

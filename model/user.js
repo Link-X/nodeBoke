@@ -26,7 +26,7 @@ module.exports = {
   getFriend (params) {
     // 查找好友
     let where = {
-      iphone: params.userNumber
+      iphone: params.iphone
     }
     let data = ['createDate', 'id', 'iphone', 'signature', 'userImg', 'userName']
     return db.query('user').where(where).field(data).select()
