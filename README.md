@@ -1,5 +1,5 @@
 
-# greenChat 聊天app前端代码
+# greenChat 聊天app后台代码
 > 个人博客和私人聊天
 
 一个基于websocket协议的绿色聊天<br/>
