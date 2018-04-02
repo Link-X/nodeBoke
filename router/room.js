@@ -34,7 +34,7 @@ router.post('/room/addRoom', (req, res, next) => {
     if (!judeg[i]) {
       res.send({
         code: 100,
-        msg: `$${key}不能为空`
+        msg: `${key}不能为空`
       })
       return
     }
@@ -45,6 +45,11 @@ router.post('/room/addRoom', (req, res, next) => {
       data
     })
   })
+})
+
+router.post('/room/joinRoom', (req, res, next) => {
+  let params = req.body
+  let judeg = {}
 })
 
 module.exports = router

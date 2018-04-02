@@ -20,7 +20,6 @@ module.exports = function (io) {
 
     socket.on('sendPrivateChat', (data) => {
       // 私聊发送信息
-      console.log(data)
       if (!data.toUserId || !usocket[data.toUserId]) {
         return
       }
