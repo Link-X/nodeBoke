@@ -2,7 +2,7 @@ const moment = require('moment')
 var _ = require('underscore')
 let usocket = {}
 let room = {}
-function privateSocket(io, toId) {
+function privateSocket (io, toId) {
   // 寻找socket 保存的 socket 对象
   return (_.findWhere(io.sockets.sockets, { id: toId }));
 }
@@ -38,10 +38,20 @@ module.exports = function (io) {
         userId: data.userId,
         toUserId: data.toUserId
       }
-      var toId
-      if (toId = usocket[data.toUserId]) {
+      var toId = usocket[data.toUserId] || null
+      // 当用户加入了群聊，并且socket能找到该用户触发消息
+      if (toId && privateSocket(io, toId)) {
         // 找出接收消息的socket 触发事件
         privateSocket(io, toId).emit('privatChat', sendData)
+        return
+      }
+      if (!privateSocket(io, toId) && toId) {
+        // 发送消息好友不在线是触发事件
+        let exitData = {
+          userName: sendData.userName,
+          toUserId: data.toUserId
+        }
+        socket.emit('accountExit', exitData)
       }
     })
 

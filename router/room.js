@@ -49,7 +49,59 @@ router.post('/room/addRoom', (req, res, next) => {
 
 router.post('/room/joinRoom', (req, res, next) => {
   let params = req.body
-  let judeg = {}
+  let judeg = {
+    friendGroupName: params.friendGroupName,
+    friendGroupId: params.friendGroupId,
+    addAccountName: params.addAccountName,
+    addAccountId: params.addAccountId
+  }
+  for (let i in judeg) {
+    if (!judeg[i]) {
+      res.send({
+        code: 100,
+        msg: `${i}不能为空`
+      })
+      return
+    }
+  }
+  room.joinRoom(params).then(data => {
+    res.send({
+      code: 200,
+      data
+    })
+  })
+})
+
+router.post('/room/groupList', (req, res, next) => {
+  let params = req.body
+  if (!params.addAccountId) {
+    res.send({
+      code: 100,
+      msg: '错误'
+    })
+  }
+  room.groupList(params).then(data => {
+    res.send({
+      code: 200,
+      data
+    })
+  })
+})
+
+router.post('/room/getGroupData', (req, res, next) => {
+  let params = req.body
+  if (!params.id) {
+    res.send({
+      code: 100,
+      msg: '错误'
+    })
+  }
+  room.getGroupData(params).then(data => {
+    res.send({
+      code: 200,
+      data
+    })
+  })
 })
 
 module.exports = router

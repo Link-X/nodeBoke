@@ -99,6 +99,12 @@ router.post('/user/addFriend', (req, res, next) => {
 
 router.post('/user/friendList', (req, res, next) => {
   let params = req.body
+  if (!params.userId) {
+    res.send({
+      code: 100,
+      msg: '错误'
+    })
+  }
   user.friendList(params).then(data => {
     res.send({
       code: 200,

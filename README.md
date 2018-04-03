@@ -7,9 +7,9 @@
 
 聊天系统（注册、登入、群聊、私聊 ----- (实现)
 
-博客系统（注册、登录、发文、改文、删文）----- (未实现)
+博客系统（发文、改文、删文）----- (未实现)
 <br/><br/><br/>
-`nodeJs`提供接口： [node端github代码跳转：https://github.com/Link-X/nodeBoke](https://github.com/Link-X/nodeBoke "node 聊天、博客系统")
+`nodeJs`提供接口： [前端端github代码跳转：https://github.com/Link-X/boke-iphone](https://github.com/Link-X/nodeBoke "node 聊天、博客系统")
 <br/>
 
 ##安装
